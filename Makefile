@@ -5,11 +5,11 @@ BUILD_DIR := ./
 SRC_DIRS := ./
 
 # additional flags for C++
-CXXFLAGS_DEV := -Wall -Wextra
+CXXFLAGS_DEV := -Wall -Wextra -g
 
 # Find all the C and C++ files we want to compile
 # Note the single quotes around the * expressions. Make will incorrectly expand these otherwise.
-SRCS := $(shell find $(SRC_DIRS) -name '*.cpp' -or -name '*.c' -or -name '*.s')
+SRCS := $(shell find $(SRC_DIRS) -name '*.cc' -or -name '*.c' -or -name '*.s')
 
 # String substitution for every C/C++ file.
 # As an example, hello.cpp turns into ./build/hello.cpp.o
@@ -32,7 +32,7 @@ CXXFLAGS += $(CXXFLAGS_DEV)
 
 # The final build step.
 $(BUILD_DIR)/$(TARGET_EXEC): $(OBJS)
-	$(CXX) $(OBJS) -o $@ $(LDFLAGS)
+	$(CXX) $(OBJS) $(CXXFLAGS) -o $@ $(LDFLAGS)
 
 # Build step for C source
 $(BUILD_DIR)/%.c.o: %.c
@@ -40,7 +40,7 @@ $(BUILD_DIR)/%.c.o: %.c
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
 # Build step for C++ source
-$(BUILD_DIR)/%.cpp.o: %.cpp
+$(BUILD_DIR)/%.cc.o: %.cc
 	mkdir -p $(dir $@)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
 
