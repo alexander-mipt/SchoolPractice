@@ -1,11 +1,12 @@
 # Thanks to Job Vranish (https://spin.atomicobject.com/2016/08/26/makefile-c-projects/)
 TARGET_EXEC := main
 
-BUILD_DIR := ./
-SRC_DIRS := ./
+BUILD_DIR := .
+SRC_DIRS := .
 
 # additional flags for C++
-CXXFLAGS_DEV := -Wall -Wextra -g
+CXXFLAGS_DEV := -Wall -Wextra -g -std=c++14
+CXX ?= g++
 
 # Find all the C and C++ files we want to compile
 # Note the single quotes around the * expressions. Make will incorrectly expand these otherwise.
